@@ -1,0 +1,137 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ character.character_name }} | Character Sheet</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'characters/styles.css' %}"
+    >
+</head>
+
+<body>
+    <main class="page-container character-sheet">
+        <header class="sheet-header">
+            <div>
+                <p class="eyebrow">D&D 3.5e Character Sheet</p>
+                <h1>{{ character.character_name }}</h1>
+                <p>Played by {{ character.player_name }}</p>
+            </div>
+
+            <a
+                href="{% url 'characters:character_builder' %}"
+                class="secondary-button"
+            >
+                Create Another Character
+            </a>
+        </header>
+
+        <section class="identity-grid">
+            <article class="information-box">
+                <span>Race</span>
+                <strong>{{ character.race }}</strong>
+            </article>
+
+            <article class="information-box">
+                <span>Class</span>
+                <strong>{{ character.character_class }}</strong>
+            </article>
+
+            <article class="information-box">
+                <span>Level</span>
+                <strong>{{ character.level }}</strong>
+            </article>
+
+            <article class="information-box">
+                <span>Alignment</span>
+                <strong>{{ character.alignment }}</strong>
+            </article>
+        </section>
+
+        <section>
+            <h2>Ability Scores</h2>
+
+            <div class="ability-grid">
+                {% for ability in abilities %}
+                    <article class="ability-card">
+                        <h3>{{ ability.name }}</h3>
+                        <p class="ability-score">{{ ability.score }}</p>
+                        <p class="ability-modifier">
+                            Modifier {{ ability.modifier }}
+                        </p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Combat Statistics</h2>
+
+            <div class="combat-grid">
+                <article class="stat-card">
+                    <span>Hit Points</span>
+                    <strong>
+                        {{ character.current_hp }} /
+                        {{ character.maximum_hp }}
+                    </strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Armor Class</span>
+                    <strong>{{ armor_class }}</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Touch AC</span>
+                    <strong>{{ touch_ac }}</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Flat-Footed AC</span>
+                    <strong>{{ flat_footed_ac }}</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Melee Attack</span>
+                    <strong>{{ melee_attack }}</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Ranged Attack</span>
+                    <strong>{{ ranged_attack }}</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Fortitude Save</span>
+                    <strong>{{ fortitude_save }}</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Reflex Save</span>
+                    <strong>{{ reflex_save }}</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Will Save</span>
+                    <strong>{{ will_save }}</strong>
+                </article>
+            </div>
+        </section>
+
+        <footer class="sheet-footer">
+            <p>
+                Simplified D&D 3.5e character sheet created with
+                Python and Django.
+            </p>
+        </footer>
+    </main>
+</body>
+</html>
